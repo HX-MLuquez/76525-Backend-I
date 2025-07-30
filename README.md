@@ -2,7 +2,7 @@
 
 - https://github.com/HX-MLuquez/{numero-de-la-comision}-Backend-I
 
-Ejemplo: https://github.com/HX-MLuquez/76525-Backend-I
+Enlace: https://github.com/HX-MLuquez/76525-Backend-I
 
 ## Presentación - https://forms.gle/a5nk7xjmMtTcFSpK7
 

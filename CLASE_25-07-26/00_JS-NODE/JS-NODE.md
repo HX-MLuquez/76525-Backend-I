@@ -1,10 +1,22 @@
 # JAVASCRIPT - NODE (y diferencia entre frontend y backend)
 
+# NODE
+- Entorno de tecnologías 
+ - Interprete de JS - V8 (motor)
+ - Tech dev Async 
+
 ## 💻 ¿Qué es **JavaScript (JS)**?
 
 **JavaScript** es un **lenguaje de programación** que originalmente fue creado para darle interactividad a las páginas web.
 
-- Es prototipado (chain)
+- Lenguaje
+- Sincrónico en un solo hilo
+- tipado débil 
+- Es prototipado (chain) - funciones | POO (CLASES)
+- Interpretado | vs Compilado | vs Transpilado (js nuevo a un js antiguo (mas neutro) - Babel webPack)
+      JAVA - GO etc -> test.exe -> ahi si interpreta
+
+
 - ...
 
 ### 🔹 ¿Dónde se usa?

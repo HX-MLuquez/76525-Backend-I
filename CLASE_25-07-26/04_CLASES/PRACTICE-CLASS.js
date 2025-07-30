@@ -1,15 +1,43 @@
 //* POO - Programación Orientada a Objetos / Clases (CLASS)
 // class Persona
 
+class Persona {
+  // Datos
+  constructor(nombre, edad = 18) {
+    this.nombre = nombre;
+    this.edad = edad;
+  }
+  // Metodos
+  getName() {
+    return this.nombre;
+  }
+}
+
+console.log(Persona); // CLASE
 
 //* Su fundamento es ser una plantilla que al instanciar tenemos un OBJETO con METODOS
 
 //* INSTANCIA - COPIA
 
+const persona1 = new Persona("Pepe");
+console.log(persona1);
 
+const persona2 = new Persona("Jaime", 22);
+console.log(persona2);
 //----------------------------------------------------------
 
+// CLASE ESTATICA - Y no necesitamos INSTANCIAR
+class PersonaStatic {
+  // Datos
+  static nombre = "Walter"
+  // Metodos estáticos
+  static getName() {
+    return PersonaStatic.nombre;
+  }
+}
 
+console.log(PersonaStatic.getName());
+console.log(PersonaStatic.nombre);
 
 /*
 ¿Cómo lo hacemos? Se creará una clase que permitirá llevar cuentas individuales según cada responsable.
@@ -27,16 +55,8 @@ Realizar prueba de individualidad entre las instancias.
 
 */
 
-class Contador {
- 
-}
+// class Contador {}
 
+// //* STATIC es el nombre de la clase punto la prop static
 
-//* STATIC es el nombre de la clase punto la prop static
-
-class Contador {
-
-}
-
-
-
+// class Contador {}
