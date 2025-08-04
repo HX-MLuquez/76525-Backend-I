@@ -1,6 +1,8 @@
 # Unidad 2: Programación Backend Avanzada
 ## Objetivos de la Clase
 
+- REPASAR y ejercitar CLASES - static - privado
+
 - Repasar las funciones en JavaScript.
   - Nuevas funcionalidades desde ES6 hasta ES11
 - IMPORT - EXPORT de módulos en JavaScript.
