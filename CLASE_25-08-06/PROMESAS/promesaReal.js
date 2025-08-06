@@ -3,17 +3,21 @@ const { sumar } = require("./utils");
 const axios = require("axios");
 
 //* Realizamos una peticion a una API para obtener datos - Ejemplo de una promesa que se resuelve con fetch
-async function fetchData() { // async <- indica que la function va a ser una promesa
+async function fetchData() {
+  // async <- indica que la function va a ser una promesa
   try {
-    const { data } = await axios( // await es una pause
+    const { data } = await axios(
+      // await es una pause
       `https://akabab.github.io/starwars-api/api/all.json`
     );
-    console.log(data[0]);
+    console.log("--->", data ? data[0] : {} ); // undefined[0]
+    // AQUI se MANEJA la DATA
   } catch (error) {
     console.log(error);
   }
 }
-fetchData()
+const jajaja = fetchData();
+console.log("jajaja", jajaja) // Promise { <pending> }
 
 //* Realizamos una peticion a una API para obtener datos - Ejemplo de una promesa que se resuelve con AXIOS
 async function myFuncion() {
@@ -50,10 +54,18 @@ const respuetaPorFuera = miPromesa
 
 console.log("respuetaPorFuera --> ", respuetaPorFuera);
 
+const holis = async () => {
+  const { data } = await axios(
+    // await es una pause
+    `https://akabab.github.io/starwars-api/api/all.json`
+  );
+};
 
-const holis = async ()=>{
-    const { data } = await axios( // await es una pause
-        `https://akabab.github.io/starwars-api/api/all.json`
-      ); 
-
-}
+async function nanana() {
+  try {
+    // Buscar data en ssararsa ......
+  } catch (error) {
+    console.log(error);
+  }
+} // es una promesa
+const nanana2 = async () => {}; // es una promesa

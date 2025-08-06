@@ -15,4 +15,22 @@ const objetos = [
   },
 ];
 
+const list_products = [];
+let total = 0
+objetos.forEach((element) => {
+  // console.log(element)
+  const listasObject = Object.keys(element) // -> ["manzanas", "peras", etc]
+  listasObject.forEach((prod) => {
+    console.log(prod);
+    if (!list_products.includes(prod)) {
+      // TRUE
+      list_products.push(prod);
+    }
+  });
 
+  Object.values(element).forEach(v=>{
+    total += v
+  })
+});
+console.log(list_products);
+console.log(total);

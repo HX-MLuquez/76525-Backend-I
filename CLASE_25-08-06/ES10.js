@@ -4,9 +4,13 @@ let texto = "  Holis    "
 console.log(texto)
 console.log(texto.trim())
 
+const search = "Honda "
+const dataAutos = [{marca: "Honda"}]
+console.log(dataAutos[0].marca === search.trim())
+
 //* FLAT - APLANA UN ARRAY
 // [[[[[[[]]]]]]]
 var lista = [["a"],[1,2, ["ojo"]]]
-console.log(lista.flat().flat()) // [ 'a', 1, 2, 'ojo' ]
+console.log(lista.flat(2)) // [ 'a', 1, 2, 'ojo' ]
 
 // multidimension  [[[[[]]]]]  anidamientos ARRAY

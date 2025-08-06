@@ -9,18 +9,27 @@ const animal = {
 
 console.log(animal);
 console.log(Object.entries(animal));
-console.log(Object.keys(animal));
 
+console.log(Object.keys(animal));
+console.log(Object.values(animal));
 console.log(Object.values(animal).length);
+
+const keysAnimal = Object.keys(animal)
+console.log(keysAnimal.includes("nombre"))
+
+const valuesAnimal = Object.values(animal)
+console.log(valuesAnimal.includes("cariñoso"))
 
 // AL TENER ESTRUCTURAS ANIDADAS  [[][][]]   [[[[[]]]]]   {{{{{}}}}}  [{}{}{}] [{[]}{[]}]
 
 // NULLISH
 
-var nana = false;
+var nana = 0
 
-let nombre = nana && nana;
+let nombre = nana && "nana jujuju";
 console.log(nombre);
+
+
 let nombre2 = nana || "Nina"; // undefined null vacío o CERO (0) ""
 console.log(nombre2);
 
@@ -33,11 +42,18 @@ if(nana){
 }else {
   resultB ="chau"
 }
+// ternario  if(nana) -> "holis" else -> "chau"
 let result = nana ? "holis" : "chau"
 console.log(result)
 //*------------------------------------------------------------------
 //*------------------------------------------------------------------
 //*------------------------------------------------------------------
+
+var lista 
+
+const filterList = lista ? lista : []
+
+filterList.map((e)=>{})
 
 class Persona {
   #nombre; //* PRIVADA # <- proteger - integridad

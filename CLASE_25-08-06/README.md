@@ -28,3 +28,13 @@
 
 Para practicar clases el HANS-1 es un buen ejemplo
 
+
+
+JS 2015 2016 ----
+    ES6  ES7 
+
+Brave     7 funciones - 2
+
+--> transpilar  JS con todo lo nuevo -> modificar JS antiguo (neutro)
+
+
