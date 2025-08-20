@@ -8,3 +8,11 @@ const rutaArchivo = path.join(__dirname, "data", "archi.txt");
 // c:\Users\mauuu\OneDrive\Escritorio\CODERHOUSE\[ 76525 BACK-I MIERC 10-00 ]\76525-CLASE\CLASE_25-08-13\data\archi.txt
 
 console.log("Ruta final:", rutaArchivo);
+
+
+//--------
+
+const rutaArchivoDinamic = function (nameFile) {
+  const mypath = path.join(__dirname, "data", nameFile);
+  return mypath;
+};
