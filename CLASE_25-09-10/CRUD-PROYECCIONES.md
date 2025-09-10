@@ -1,5 +1,218 @@
 # CRUD 
 
+
+## ➕ CREATE
+
+### 📘 Descripción general:
+
+Las operaciones de **inserción** permiten **agregar documentos nuevos** a una colección.
+MongoDB ofrece métodos para insertar **un solo documento** o **varios documentos** al mismo tiempo.
+
+### 📌 Sintaxis:
+
+```javascript
+db.collection.insertOne(documento, opciones);
+db.collection.insertMany([documentos], opciones);
+```
+
+### Buenas prácticas en CREATE
+
+- ✅ Deja que MongoDB genere automáticamente el `_id` salvo que tengas un motivo claro para definirlo.
+- 🚫 Evita usar `insert()`, está obsoleto.
+- ⚡ Usa `insertMany()` para grandes volúmenes de datos, es más eficiente.
+
+---
+
+## 🔍 READ (GET)
+
+### 📘 Descripción general:
+
+Las operaciones de **lectura** permiten **consultar documentos** en una colección.
+MongoDB provee diferentes métodos para recuperar documentos completos o filtrados.
+
+### 📌 Sintaxis:
+
+                      IF
+```javascript
+//*                ¿QUIEN?   ¿QUE campos?
+db.collection.find(filtro, proyección);
+db.collection.findOne(filtro, proyección);
+```
+
+db.estudiantes.findOne({ nombre: "Ana"});
+
+db.estudiantes.findOne({ _id: ObjectId("68c1885ddbb0ed00f3228fb7")});
+
+
+### PROYECCIONES   - filtro de que campos vamos a requerir
+db.estudiantes.find({ curso: "Arte"}, {nombre:1, edad:1, _id:0})
+
+
+### Concatenar métodos
+
+db.estudiantes.find().limit(2).skip(1)
+
+db.estudiantes.find().skip(10)
+
+Paginas
+db.estudiantes.find().skip().limit(10)
+
+db.estudiantes.find().skip(10).limit(10)
+
+db.estudiantes.find().skip(20).limit(10)
+---
+
+db.estudiantes.countDocuments({ curso: "Arte" });
+
+
+###  Buenas prácticas en READ
+
+- ✅ Usa **filtros específicos** para mejorar el rendimiento.
+- 🔍 Crea **índices** en campos de búsqueda frecuente (`createIndex`).
+- ⚡ Evita traer demasiados datos, combina `limit()` y `projection`.
+
+
+---
+
+## 🔄 UPDATE
+
+### 📘 Descripción general:
+
+Las operaciones de actualización permiten **modificar documentos existentes** en una colección. Se puede actualizar **un solo documento** o **varios documentos**.
+
+### 📌 Sintaxis:
+
+```javascript
+db.collection.updateOne(filtro, actualización, opciones);
+db.collection.updateMany(filtro, actualización, opciones);
+```
+
+
+- `filtro`: determina qué documentos serán actualizados (igual que en `find()`).
+- `actualización`: define los cambios a aplicar usando **operadores de actualización**.
+- `opciones`: como `upsert`, que inserta un documento si no existe.
+
+---
+
+### 🎯 Principales operadores de actualización:
+
+| Operador  | Descripción                                              |
+| --------- | -------------------------------------------------------- |
+| `$set`    | Establece el valor de un campo.                          |
+| `$unset`  | Elimina un campo del documento.                          |
+| `$inc`    | Incrementa (o decrementa) el valor numérico de un campo. |
+| `$rename` | Cambia el nombre de un campo.                            |
+| `$min`    | Establece un valor mínimo si el actual es mayor.         |
+| `$max`    | Establece un valor máximo si el actual es menor.         |
+| `$mul`    | Multiplica el valor numérico de un campo.                |
+
+
+
+db.estudiantes.updateOne({nombre:"Ana"}, {$set:{curso:"Arte", altura: 2}});
+db.estudiantes.updateOne({ _id: ObjectId("68c1885ddbb0ed00f3228fb6")}, {$set:{apellido:"O'nell"}});
+
+db.estudiantes.updateOne({ _id: ObjectId("68c1885ddbb0ed00f3228fb6")}, { $inc: { edad: 1 }});
+
+db.estudiantes.updateOne({ _id: ObjectId("68c1885ddbb0ed00f3228fb6")},  {$unset: {  altura: "" }});
+
+db.estudiantes.updateOne({ _id: ObjectId("68c1885ddbb0ed00f3228fb6")}, { $rename: { edad: "age" }});
+---
+
+
+db.estudiantes.updateMany({ curso: "Arte" }, { $set: { edad: 101 } });
+
+### Buenas prácticas en UPDATE
+
+- ⚠️ **No uses `update()`**, está obsoleto. Usa `updateOne()` o `updateMany()`.
+- ✅ Usa `$set` para evitar sobrescribir campos no mencionados.
+- 🛠 Usa `upsert` para insertar si no existe, pero asegúrate de no duplicar por error.
+- 🔍 Antes de actualizar, puedes verificar con `find()` qué documentos serán afectados.
+
+
+---
+
+## 🗑️ DELETE  - NO DELETE -> SOFT o borrado lógico
+
+### 📌 Métodos principales:
+
+| Método               | Descripción                                                 |
+| -------------------- | ----------------------------------------------------------- |
+| `deleteOne(filtro)`  | Elimina el **primer documento** que coincida con el filtro. |
+| `deleteMany(filtro)` | Elimina **todos los documentos** que coincidan.             |
+| `drop()`             | Elimina toda la colección. ⚠️ Irreversible                  |
+
+---
+
+
+### ✅ Ejemplos prácticos
+
+```javascript
+//* Eliminar un documento por ID
+db.estudiantes.deleteOne({ _id: ObjectId("60f8a3d9fc13ae2d3c000001") }); //* OK
+```
+
+```javascript
+//* Eliminar el primer documento con nombre "Sara"
+db.estudiantes.deleteOne({ nombre: "Sara" });   //!   X MAL
+```
+
+```javascript
+//* Eliminar múltiples documentos por campo
+db.estudiantes.deleteMany({ cursa: "Arte" });  //! Medio Mal 
+```
+
+```javascript
+//* Eliminar todos los documentos
+db.estudiantes.deleteMany({});   //! ERROR SUPER ERROR
+```
+
+```javascript
+//* Eliminar una colección completa
+db.estudiantes.drop();  //! ??? mucho cuidado
+```
+
+
+---
+
+[
+  {
+    _id: ObjectId('68c1885ddbb0ed00f3228fb6'),
+    nombre: 'Ana',
+    edad: 101,
+    curso: 'Arte',
+    apellido: "O'nell",
+    deleted: false
+  },
+  {
+    _id: ObjectId('68c1885ddbb0ed00f3228fb7'),
+    nombre: 'Pedro',
+    edad: 101,
+    curso: 'Arte',
+    deleted: false
+  },
+  { _id: 'A100', 
+  nombre: 'Luis', 
+  edad: 101, 
+  curso: 'Arte',
+  deleted: false
+   }
+]
+
+---
+
+
+### SUPER DELETE UPDATE query
+
+- Quiero eliminar a 'Ana'
+
+1. Buscar a Ana con su ID (único)
+db.estudiantes.findOne({ _id: ObjectId("68c1885ddbb0ed00f3228fb6")});
+2. Si Ana existe editamos el campo soft delete
+db.estudiantes.updateOne({ _id: ObjectId("68c1885ddbb0ed00f3228fb6")}, {$set:{deleted:true}});
+
+
+# OPERADORES y MÁS
+
 use colegio
 db.createCollection("estudiantes")
 
