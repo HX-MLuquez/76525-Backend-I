@@ -1,29 +1,38 @@
-const User = require("../models/user.model");
+const User = require("../models/user.model"); // => User {...}
 const mongoose = require("mongoose");
 
 class UserManager {
   async createUser(data) {
-    //! |***********************|
-    //* |***********************|
-    //! |****** CODE AQUI ******|
-    //* |***********************|
-    //! |***********************|
+    try {
+      if (!data) throw new Error("Datos de usuario no proporcionados");
+      const newUser = new User(data);
+      await newUser.save();
+      return newUser;
+    } catch (error) {
+      console.error("Error creando usuario:", error);
+      throw new Error("Error al crear usuario");
+    }
   }
 
   async getAllUsers() {
-    //! |***********************|
-    //* |***********************|
-    //! |****** CODE AQUI ******|
-    //* |***********************|
-    //! |***********************|
+    try {
+      const users = await User.find();
+      return users;
+    } catch (error) {
+      console.error("Error al buscar usuarios:", error);
+      throw new Error("Error al obtener usuarios");
+    }
   }
 
   async getUserById(id) {
-    //! |***********************|
-    //* |***********************|
-    //! |****** CODE AQUI ******|
-    //* |***********************|
-    //! |***********************|
+    try {
+      if (!id) throw new Error("ID no proporcionado");
+      const user = await User.findById(id);
+      return user;
+    } catch (error) {
+      console.error("Error obteniendo usuario:", error);
+      throw new Error("Error al obtener usuario por ID");
+    }
   }
 
   async getUserByDni(dni) {
@@ -40,7 +49,10 @@ class UserManager {
       if (!mongoose.Types.ObjectId.isValid(id)) {
         throw new Error("ID no válido");
       }
-      return await User.findByIdAndUpdate(id, data, { new: true });
+      // userOld{data} -> userNew{data}                           userNew{data}
+      //                                       ¿quién?¿qué datos? que devuelva el nuevo}
+      const userUpdated = await User.findByIdAndUpdate(id, data, { new: true }); // 1 || 0 -> userOld{data}
+      return userUpdated;
     } catch (error) {
       console.error("Error actualizando:", error);
       throw new Error("Error al actualizar");
@@ -49,10 +61,29 @@ class UserManager {
 
   async deleteUserById(id) {
     try {
-      return await User.findByIdAndDelete(id);
+      const userDelete = await User.findByIdAndDelete(id);
+      return userDelete;
     } catch (error) {
       console.error("Error eliminando:", error.message);
       return null;
+    }
+  }
+
+  //* Soft Delete
+  async softDeleteUserById(id) {
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new Error("ID no válido");
+      }
+      const userSoftDeleted = await User.findByIdAndUpdate(
+        id,
+        { deleted: true },
+        { new: true }
+      );
+      return userSoftDeleted;
+    } catch (error) {
+      console.error("Error en soft delete:", error);
+      throw new Error("Error al realizar soft delete");
     }
   }
 }

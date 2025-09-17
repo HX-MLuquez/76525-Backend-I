@@ -5,7 +5,7 @@ const logger = require("morgan");
 
 // require("dotenv").config();
 // const MONGO_URI = process.env.MONGO_URI;
-const config = require('./config');
+const config = require("./config");
 
 const routes = require("./routes/index");
 
@@ -20,7 +20,14 @@ const app = express();
 //! |****** CODE AQUI ******|
 //* |***********************|
 //! |***********************|
-
+//* Access a la IP de la machine nuestra
+//* mongodb+srv://mauriciogastoncoderhouse_db_user:<DB_PASSWORD>@cluster01.aolpvws.mongodb.net/school?retryWrites=true&w=majority&appName=Cluster01
+mongoose
+  .connect(config.database.uri)
+  .then(() => {
+    console.log("MongoDB connected");
+  })
+  .catch((err) => console.error(err));
 
 //* MIDDELWARES
 app.use(logger("dev"));
