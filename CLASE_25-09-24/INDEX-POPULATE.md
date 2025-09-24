@@ -41,6 +41,8 @@ userSchema.index({ description: 'text' });
 
 ## Populations en Mongo
 
+**POPULATION nos brinda el total de la info de los datos anidados (un doc dentro de otro doc o una lista de docs dentro de otro doc)**
+
 ### ¿Qué es una Population?
 
 Una **population** implica obtener un documento referenciado dentro de otro documento, con el fin de obtener ambos en una sola búsqueda. Consiste en almacenar el id de un documento, como propiedad de otro documento. A esto se le conoce como **“referencia”**.
@@ -94,6 +96,7 @@ Ahora, si el usuario adopta las dos mascotas, no agregamos todo el documento, si
   ],
   "_id": ObjectId("aaaaaaaa")
 }
+
 ```
 
 ### 4. Hacer una búsqueda con `populate`
